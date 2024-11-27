@@ -1,0 +1,1603 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* MOODBOARD
+Warna Primer/utama : #191919
+Secondary Color : #e9e7e0  
+Warna Font : white / black*/
+/* Font Navbar : Open Sans */
+
+body {
+  background-color: black;
+  color: white;
+  height: 100vh;
+  overflow-x: hidden; /* Sembunyikan scroll horizontal */
+  margin: 0; /* Hapus margin default */
+  padding: 0; /* Hapus padding default */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vh 2vw;
+  font-weight: 500;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transition for shadow */
+
+  width: 100vw; /* Full width sesuai lebar layar */
+  height: 10vh; /* 10% tinggi layar */
+  background-color: transparent;
+}
+
+/* Navbar default */
+.navbar {
+  background-color: transparent; /* Warna asli navbar */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transisi untuk efek slide dan perubahan warna */
+  position: fixed; /* Navbar tetap di posisi tetap */
+  width: 100%; /* Lebar penuh */
+  top: 0; /* Posisi di atas */
+  z-index: 1000; /* Pastikan navbar berada di atas konten lain */
+}
+
+/* CSS untuk navbar saat digulir ke bawah */
+.navbar.hide {
+  transform: translateY(-100%); /* Geser navbar ke atas keluar dari tampilan */
+  background-color: transparent; /* Transparan saat menghilang */
+}
+
+/* CSS untuk navbar saat digulir ke atas */
+.navbar.show {
+  transform: translateY(0); /* Kembalikan navbar ke posisi semula */
+  background-color: #e9e7e0; /* Warna latar belakang saat navbar muncul kembali */
+  height: 10vh;
+}
+
+/* Navbar saat muncul kembali setelah scroll ke atas */
+.navbar.show .search-box {
+  border-color: white; /* Border berwarna putih */
+}
+
+/* Warna placeholder 'ketik' saat navbar muncul kembali setelah scroll ke atas */
+.navbar.show .search-box input::placeholder {
+  color: black; /* Placeholder berwarna hitam */
+}
+
+/* CSS untuk konten di dalam navbar saat muncul kembali */
+.navbar.show .categories a,
+.navbar.show .search-box input,
+.navbar.show .search-box button,
+.navbar.show .profile a img {
+  color: black; /* Warna teks dan ikon menjadi hitam */
+}
+
+/* kata 'ketik akan berwarna putih */
+.navbar.show .search-box input::placeholder {
+  color: white; /* Placeholder berwarna putih */
+}
+
+/* CSS untuk efek inversi pada elemen saat navbar muncul kembali */
+.navbar.show .logo img,
+.navbar.show .search-icon img,
+.navbar.show .profile img {
+  filter: invert(0); /* Inversi warna pada logo dan ikon */
+}
+
+/* Gaya saat halaman di-scroll */
+.navbar.scrolled {
+  background-color: #e9e7e0; /* Navbar berubah menjadi putih */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 50px; /*Yang ini ga perlu diubah */
+  transition: 0.5s;
+}
+
+/* Ubah warna teks saat navbar berwarna putih */
+.navbar.scrolled .categories li a {
+  color: black; /* Ubah teks navbar menjadi hitam */
+}
+
+.navbar.scrolled .logo img,
+.navbar.scrolled .search-icon img,
+.navbar.scrolled .profile img {
+  filter: invert(
+    0
+  ); /* Ubah logo dan ikon menjadi warna asli (hitam) kalo navbar muncul*/
+}
+
+.navbar.scrolled .search-box button {
+  color: black;
+}
+.navbar:hover {
+  background-color: #e9e7e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect pas nge hover */
+}
+
+/* Navbar saat berada di ujung atas halaman */
+.navbar.at-top {
+  background-color: transparent; /* Warna latar belakang transparan */
+  color: white; /* Warna teks putih */
+}
+
+.navbar.at-top .categories a,
+.navbar.at-top .search-box input,
+.navbar.at-top .search-box button,
+.navbar.at-top .profile a img {
+  color: white; /* Warna teks dan ikon putih */
+}
+
+.navbar.at-top .logo img,
+.navbar.at-top .search-icon img,
+.navbar.at-top .profile img {
+  filter: invert(1); /* Inversi warna pada logo dan ikon */
+}
+
+/* Hover effect saat navbar berada di ujung atas */
+.navbar.at-top:hover {
+  background-color: #e9e7e0; /* Warna latar belakang saat hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan saat hover */
+}
+
+.logo img {
+  width: 5vw;
+  filter: invert(1); /* Initial inverted color (white) */
+  transition: filter 0.3s ease;
+}
+
+/* Change logo color to normal (black) when hovering over the navbar */
+.navbar:hover .logo img {
+  filter: invert(0); /* Normal color (black) on navbar hover */
+}
+
+.categories {
+  list-style: none;
+  display: flex;
+  font-family: "Fairplay";
+  letter-spacing: 1px;
+}
+
+.categories a {
+  color: #e9e7e0;
+  text-decoration: none;
+}
+
+.categories li {
+  margin: 0 1.5vw;
+}
+
+/* Add a border-bottom on hover for navbar links */
+/* Style for navbar links */
+.categories li a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px; /* Ukuran font yang diperbesar (2x dari 16px) */
+  position: relative; /* Required for positioning the pseudo-element */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Underline effect */
+.categories li a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -5px; /* Adjust based on your design */
+  width: 100%;
+  height: 0.3vh; /* Thickness of the underline */
+  background-color: #191919; /* Color of the underline */
+  transform: scaleX(0); /* Initially hide the underline */
+  transform-origin: bottom right;
+  transition: transform 0.3s ease; /* Smooth transition for underline appearance */
+}
+
+/* Change text color and show underline on hover */
+.categories li a:hover {
+  color: black; /* Change text color on hover */
+}
+
+.categories li a:hover::after {
+  transform: scaleX(1); /* Show the underline on hover */
+  transform-origin: bottom left;
+}
+
+.navbar:hover .categories li a {
+  color: black;
+}
+
+.search-profile-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-box {
+  display: none;
+  align-items: center;
+  position: absolute;
+  right: 100px; /* Adjust to position search box correctly */
+  top: 0.9vh;
+  background-color: transparent; /* Background color remains transparent */
+  padding: 0vh;
+
+  border-radius: 20px;
+  z-index: 10;
+  flex-direction: row-reverse;
+
+  border: 2px solid white; /* Border default berwarna putih */
+  transition: border-color 0.3s ease; /* Transisi perubahan warna border */
+}
+
+.search-box input {
+  padding: 0.5vw;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  border-radius: 3px;
+  margin-right: 1vw;
+  width: 10vw; /*Buat ngatur lebar kotak inputan*/
+  transition: width 0.3s ease; /* Transisi halus */
+  outline: none;
+}
+
+/* Warna default 'ketik' putih */
+.search-box input::placeholder {
+  color: white; /* Warna placeholder 'ketik' menjadi putih */
+  opacity: 0.7; /* Pastikan opacity diatur ke 1 agar terlihat jelas */
+}
+
+/* CSS untuk placeholder saat navbar di-scroll */
+.navbar.scrolled .search-box input::placeholder {
+  color: black; /* Placeholder berwarna hitam saat navbar di-scroll */
+}
+
+/* Saat navbar di-hover, ubah warna 'ketik' menjadi hitam */
+.navbar:hover .search-box input::placeholder {
+  color: black; /* Ubah placeholder 'ketik' menjadi hitam */
+}
+
+/* CSS untuk navbar saat di-scroll */
+.navbar.scrolled .search-box {
+  border-color: black; /* Border berwarna hitam saat navbar di-scroll */
+}
+
+/* CSS saat navbar muncul kembali setelah scroll ke atas, namun belum mencapai ujung atas */
+.navbar.show:not(.at-top) .search-box {
+  border-color: black; /* Ubah warna border menjadi hitam */
+}
+
+.navbar.show:not(.at-top) .search-box input::placeholder {
+  color: black; /* Ubah warna placeholder 'ketik' menjadi hitam */
+}
+
+.navbar.show:not(.at-top) .search-box input {
+  color: black; /* Ubah warna teks input menjadi hitam */
+}
+
+.search-box button {
+  padding: 0.5vh 1vw;
+  background-color: transparent;
+  color: white;
+
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-box input:hover,
+.search-box button:hover {
+  background-color: transparent;
+  color: white;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.search-box.active {
+  background-color: transparent; /* Warna latar belakang menjadi transparan */
+  border: 1px solid black; /* Border tetap putih untuk kontras */
+}
+
+/* Warna font default saat aktif */
+.search-box.active input {
+  color: white; /* Warna font menjadi putih */
+  font-size: 20px; /* Perbesar ukuran font */
+}
+
+.search-box.active button {
+  color: white; /* Warna teks tombol menjadi putih */
+  border: none; /* Hilangkan border pada tombol */
+  background-color: transparent; /* Warna latar belakang tombol menjadi transparan */
+  font-size: 16px; /* Perbesar ukuran font pada tombol jika perlu */
+}
+
+/* Warna font saat hover navbar */
+.navbar:hover .search-box.active input,
+.navbar:hover .search-box.active button {
+  color: black; /* Ubah warna font menjadi hitam saat hover navbar */
+}
+
+/* Change border color when navbar is hovered */
+.navbar:hover .search-box {
+  border-color: black; /* Border color when navbar is hovered */
+}
+
+.search-box:not(:hover) {
+  border-color: white; /* Default border color when not hovering */
+}
+
+.search-icon {
+  cursor: pointer;
+  margin-left: 1vw;
+  position: relative; /* Ensure it is positioned relative to its container */
+}
+
+.magnifier {
+  width: 1vw;
+}
+
+.profile img {
+  width: 3vw;
+  border-radius: 50%;
+}
+
+.profile {
+  margin-left: 1vw;
+  transform: scale(0.8);
+}
+
+.search-icon img,
+.profile img {
+  filter: invert(1); /* Setel ikon menjadi putih */
+  transition: filter 0.3s ease; /* Transisi warna yang halus */
+}
+
+/* Kembalikan warna ikon ke normal saat navbar di-hover */
+.navbar:hover .search-icon img,
+.navbar:hover .profile img {
+  filter: invert(0); /* Kembalikan warna ikon ke aslinya */
+}
+
+/* Style untuk dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none; /* Sembunyikan menu secara default */
+  position: absolute;
+  top: 120%; /* Tempatkan di bawah kategori */
+  left: 0;
+  background-color: white; /* Warna background menu */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+  z-index: 1000; /* Pastikan menu muncul di depan elemen lainnya */
+  list-style: none;
+  padding: 1vh 0vw;
+  min-width: 20vw; /* Minimum lebar menu */
+  border-radius: 5px;
+  width: auto; /* Lebar menyesuaikan konten */
+  white-space: nowrap; /* Mencegah teks membungkus ke baris berikutnya */
+}
+
+.dropdown-menu li {
+  padding: 1vh 1vw;
+}
+
+.dropdown-menu li a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+  margin: 0.6vh 0;
+}
+
+/* Efek hover pada setiap item dropdown */
+.dropdown-menu li:hover a {
+  border-radius: 5px;
+}
+
+/* Tampilkan dropdown saat di-hover */
+.dropdown:hover .dropdown-menu {
+  display: block; /* Tampilkan menu dropdown */
+}
+
+/* Style saat navbar di-hover */
+.navbar:hover .dropdown-menu li a {
+  color: black;
+}
+
+/* HAMBURGER MENU  DAN KEPERLUANNYA */
+
+/* Hamburger menu */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Hide categories and search-profile-container on small screens */
+#categories,
+#search-profile-container {
+  display: flex; /* Tampilkan flex secara default */
+}
+
+.navbar .hamburger a {
+  color: white;
+  text-decoration-line: none;
+}
+
+.navbar:hover .hamburger a {
+  color: black; /* Ubah warna hamburger menu menjadi hitam saat navbar di-hover */
+}
+
+.navbar:hover .hamburger a {
+  color: black; /* Ubah warna hamburger menu menjadi hitam saat navbar di-hover */
+}
+
+/* Menu Overlay Styles */
+.menu-overlay {
+  display: none; /* Sembunyikan overlay secara default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50vh;
+  background-color: rgba(223, 223, 223, 0.99); /* Latar belakang gelap */
+  z-index: 1000; /* Pastikan overlay berada di atas konten lain */
+}
+
+.overlay-content {
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+}
+
+.overlay-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.overlay-menu li {
+  margin: 10px 0;
+}
+
+.overlay-menu a {
+  color: black; /* Warna teks di overlay */
+  text-decoration: none;
+  font-size: 20px;
+}
+
+/* Close Button */
+.closebtn {
+  color: black; /* Warna close button */
+  font-size: 36px;
+  cursor: pointer;
+  position: absolute;
+  top: 0vh;
+  right: -67vw;
+}
+
+/* MULAI DAARI SINI UDAH VIDEO NYA */
+
+/* Pastikan video memenuhi tinggi penuh layar */
+#background-video {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Video memenuhi tinggi penuh viewport */
+  object-fit: cover;
+  z-index: -1; /* Video tetap di belakang konten lainnya */
+  filter: brightness(50%);
+}
+
+video {
+  border: none; /* Hilangkan border */
+  display: block; /* Menghindari spasi di bawah video */
+  margin: 0; /* Hilangkan margin */
+}
+
+/* Overlay yang menampilkan gradasi */
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20vh; /* Sesuaikan tinggi sesuai kebutuhan */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+  pointer-events: none; /* Agar overlay tidak mengganggu interaksi pengguna */
+  z-index: 5; /* Pastikan overlay berada di atas video */
+}
+
+/* tulisan aksara suara */
+.overlay-text {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: "Playfair Display SC";
+  font-size: 50px;
+  text-align: center;
+}
+
+/* TULISAN Mewujudkan Karya Seni yang Mengangkat Jiwa Kebudayaan Indonesia */
+.sub-overlay-text {
+  position: absolute;
+  top: 77.5%; /*tepat di bawah si tulisan aksara suara*/
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: "Poppins";
+  font-size: 15px;
+  text-align: center;
+  z-index: 1;
+  letter-spacing: 1px;
+}
+
+/* Halaman hitam di bawah video */
+.black-page {
+  width: 100%;
+  height: 100%; /* Tinggi penuh dari viewport */
+  background-color: #191919;
+  position: relative; /* Pastikan div bisa berisi elemen lain */
+  box-shadow: rgb(0, 0, 0) 3px 3px 15px 0px;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* MULAI DARI SINI UDAH BAGIAN WAYANG */
+
+.content-box {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+
+  justify-content: space-between;
+  padding: 5vw;
+  opacity: 0;
+
+  /* masalah nya di sini */
+  transform: translateX(50vh); /* Pas Awalannya geser dari kanan */
+
+  transition: opacity 1s ease, transform 0.5s ease; /*Durasi transisi*/
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+/* Style for the image */
+.content-box img {
+  width: 28%;
+  margin-left: 10%; /* Move the image slightly to the right */
+  border-radius: 5%;
+}
+
+/* Style for the text section (h2 and p) */
+.content-box .text-content {
+  width: 50%; /* Adjust the text container width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center the text */
+  margin-right: 5%; /* Move the text slightly to the left */
+}
+
+/* TULISAN SEMALAMAN DI DUNIA BAYANGAN */
+.content-box h2 {
+  font-size: 40px;
+  margin: 3vh 0;
+}
+
+.content-box a {
+  text-decoration-line: none;
+  color: white;
+}
+
+.content-box p {
+  font-family: "Poppins";
+}
+
+.content-box a:hover {
+  text-decoration-line: none;
+  transition: 0.2s ease-in-out;
+  color: rgb(219, 219, 219);
+}
+
+.gambar-wayang {
+  box-shadow: rgb(0, 0, 0) 0px 5px 15px 0px;
+}
+
+/* TULISAN AGENDA BUDAYA ( YANG WARNA OREN ) */
+.content-box .agenda {
+  font-size: 20px;
+}
+
+/* DEKRIPSI NYA (YANG DI BAWAH JUDUL) */
+.content-box .deskripsi-wayang {
+  font-size: 14px;
+  margin-bottom: 3vh;
+}
+
+.tanggal-acara,
+.lokasi,
+.harga-tiket {
+  margin-bottom: 2.7vh;
+  margin-right: 5%;
+  margin-left: 7%;
+}
+
+.icon-nih img {
+  display: flex;
+  margin-bottom: 3vh;
+  margin-right: 5%;
+  margin-left: 7%;
+}
+
+.tanggal-acara {
+  margin-top: -20%;
+}
+
+.content-box .text-content img {
+  margin-left: 0%;
+  margin-bottom: 2%;
+}
+
+/* Tambahkan kelas untuk mengubah gaya saat konten muncul */
+.content-box.show {
+  opacity: 1; /* Tampilkan konten */
+  transform: translateX(0); /* Kembalikan posisi ke normal */
+}
+
+.selengkapnya {
+  width: 16vw;
+  padding: 2% 0;
+  border-radius: 20px;
+  background-color: rgb(199, 129, 0);
+  color: black;
+  font-weight: 600;
+  font-family: "Poppins";
+  position: relative;
+  top: 3vh;
+}
+
+.selengkapnya:hover {
+  width: 16vw;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease-out;
+  padding: 2% 0;
+  border-radius: 20px;
+  background-color: rgb(199, 129, 0);
+  color: white;
+  font-family: "Poppins";
+  transform: scale(1.03);
+  box-shadow: rgb(255, 255, 255) 0px 2px 5px 0px;
+}
+
+.selengkapnya:active {
+  letter-spacing: 0.5px;
+  background-color: rgb(199, 129, 0);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(5px);
+  transition: 100ms;
+}
+
+/* MULAI DARI SINI UDAH MASUK KE BAGIAN ARTIKEL */
+
+.white-page {
+  width: 100%;
+  height: 90vh;
+  background-color: #e9e7e0;
+  padding: 2%;
+
+  position: relative; /* Agar pseudo-elemen bisa diposisikan relatif terhadap .white-page */
+  overflow: hidden; /* Mencegah konten keluar dari area .white-page */
+}
+
+.white-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url(../gambar/Keperluan-projek/bg-batik-2.jpg); /* background batik */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  z-index: 1; /* Agar berada di belakang konten */
+}
+
+/* TULISAN JANGAN LEWATKAN */
+.white-page .content-box-2 h2 {
+  font-family: "Poppins";
+  font-weight: 600;
+  text-align: center;
+  color: #191919;
+  font-size: 40px;
+  letter-spacing: -1px;
+  margin-top: -1%;
+}
+
+/* TULISAN RAGAM ARTIKEL NUSANTARA */
+.white-page .lanjutan-tulisan {
+  font-family: "Poppins";
+  font-size: 25px;
+  text-align: center;
+  color: #191919;
+  font-weight: 400;
+  margin-top: -0.5%;
+}
+
+/* INI CONTAINER YANG NAMPUNG SEMUA KONTEN DALAM WHITE PAGE */
+.content-box-2 {
+  position: relative;
+  z-index: 2;
+}
+
+/* KALO INI CONTAINER YANG NAMPUNG SEMUA GAMBAR DARI ARTIKEL NYA */
+.tabel-artikel {
+  width: 95%;
+  margin: 2% auto;
+}
+
+.barisgambarartikel {
+  white-space: nowrap;
+}
+
+/* KALO INI BARU KUMPULAN GAMBAR DARI ARTIKELNYA */
+.barisgambarartikel td {
+  box-sizing: border-box;
+  width: 20.5vw; /*  ini ukuran lebar setiap gambarnya */
+  height: 40vh; /*  kalo ini ukuran tinggi setiap gambarnya */
+  background: rgba(217, 217, 217, 0.58);
+  border: 1px solid black;
+  box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  border-radius: 17px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  font-weight: bolder;
+  color: black;
+  margin-right: 3%;
+}
+
+.barisgambarartikel td:hover {
+  transform: scale(1.05);
+}
+
+.barisgambarartikel td:active {
+  transform: scale(0.95);
+}
+
+.laila-sari {
+  width: 100%; /* Mengatur lebar gambar 100% dari elemen td */
+  height: 100%; /* Mengatur tinggi gambar 100% dari elemen td */
+  object-fit: cover; /* Memastikan gambar memenuhi kotak tanpa merusak rasio aspek */
+  border-radius: 15px;
+}
+
+.benyamin {
+  width: 100%; /* Mengatur lebar gambar 100% dari elemen td */
+  height: 100%; /* Mengatur tinggi gambar 100% dari elemen td */
+  object-fit: cover; /* Memastikan gambar memenuhi kotak tanpa merusak rasio aspek */
+  border-radius: 15px;
+}
+
+.pasar-apung {
+  width: 100%; /* Mengatur lebar gambar 100% dari elemen td */
+  height: 100%; /* Mengatur tinggi gambar 100% dari elemen td */
+  object-fit: cover; /* Memastikan gambar memenuhi kotak tanpa merusak rasio aspek */
+  border-radius: 15px;
+}
+
+.tenun {
+  width: 100%; /* Mengatur lebar gambar 100% dari elemen td */
+  height: 100%; /* Mengatur tinggi gambar 100% dari elemen td */
+  object-fit: cover; /* Memastikan gambar memenuhi kotak tanpa merusak rasio aspek */
+  border-radius: 15px;
+}
+
+/* INI BAGIAN YANG NAMPUNG SEMUA JUDUL DARI ARTIKELNYA */
+.deskripsi-artikel {
+  width: 95%;
+  margin: 2% auto;
+
+  margin-top: -1.3%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.laila-sari-deskripsi {
+  width: 21vw;
+  height: auto;
+  font-family: "Fairplay";
+  font-size: 25px;
+}
+
+.laila-sari-deskripsi a {
+  text-decoration-line: none;
+  color: #191919;
+  font-weight: 300;
+  font-size: 22px;
+}
+
+.laila-sari-deskripsi a:hover {
+  text-decoration-line: none;
+  color: black;
+}
+
+.pasar-apung-deskripsi {
+  width: 21vw;
+  height: auto;
+  font-family: "Fairplay";
+  font-size: 25px;
+}
+
+.pasar-apung-deskripsi a {
+  text-decoration-line: none;
+  color: #191919;
+  font-weight: 300;
+  font-size: 22px;
+}
+
+.pasar-apung-deskripsi a:hover {
+  text-decoration-line: none;
+  color: black;
+}
+
+.benyamin-deskripsi {
+  width: 21vw;
+  height: auto;
+  font-family: "Fairplay";
+  font-size: 25px;
+}
+
+.benyamin-deskripsi a {
+  text-decoration-line: none;
+  color: #191919;
+  font-weight: 300;
+  font-size: 22px;
+}
+
+.benyamin-deskripsi a:hover {
+  text-decoration-line: none;
+  color: black;
+}
+
+.tenun-deskripsi {
+  width: 21vw;
+  height: auto;
+  font-family: "Fairplay";
+
+  margin-left: -3%;
+}
+
+.tenun-deskripsi a {
+  text-decoration-line: none;
+  color: #474747;
+  font-weight: 300;
+  font-size: 22px;
+}
+
+.tenun-deskripsi a:hover {
+  text-decoration-line: none;
+  color: black;
+}
+
+.selengkapnya-2 {
+  width: 24vw;
+  padding: 1% 2%;
+  border-radius: 20px 0 0 20px;
+  background-color: #191919;
+  color: #e9e7e0;
+  font-weight: 600;
+  font-family: "Poppins";
+  margin-top: -0.3%;
+  position: absolute;
+  text-align: left;
+  right: -5%;
+}
+
+.selengkapnya-2:hover {
+  width: 26.1%;
+  letter-spacing: 0.23px;
+  transition: all 0.2s ease-out;
+  padding: 1% 2%;
+  border-radius: 20px 0 0 20px;
+  background-color: #191919;
+  color: white;
+  font-family: "Poppins";
+  transform: scale(1.03);
+}
+
+.selengkapnya-2:active {
+  letter-spacing: 0.5px;
+  background-color: #191919;
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(5px);
+  transition: 100ms;
+}
+
+/* MULAI DARI SINI UDAH MASUK BAGIAN AKSARA SUARA DESKRPISI */
+
+.black-page-2 {
+  width: 100%;
+  height: 100vh;
+  background-color: #191919;
+  padding: 5%;
+  overflow: hidden;
+}
+
+/* INI BAGIAN YANG NAMPUNG 4 GAMBAR NYA */
+.kotak {
+  width: 70%;
+  height: auto;
+}
+
+.kotak1 {
+  width: 16.5vw;
+  height: 38.3vh;
+  background-color: #474747;
+  border-radius: 30px;
+  margin-right: 2%;
+  margin-bottom: 2%;
+  overflow: hidden;
+
+  position: relative;
+
+  overflow: hidden; /* Mencegah overlay keluar dari kotak */
+
+  transition: transform 0.3s ease; /* Transisi halus untuk pembesaran kotak */
+  transform: scale(1); /* Ukuran awal kotak */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  opacity: 0; /* Mulai dengan opacity 0 */
+  transition: opacity 0.3s ease; /* Transisi halus */
+  display: flex; /* Menggunakan flex untuk memusatkan teks */
+  align-items: center; /* Memusatkan teks secara vertikal */
+  justify-content: center; /* Memusatkan teks secara horizontal */
+  transform: scale(1); /* Ukuran awal overlay */
+}
+
+.kotak1:hover {
+  transform: scale(1.03); /* Membesarkan kotak saat hover */
+}
+
+.kotak1:hover .overlay {
+  opacity: 1; /* Menampilkan overlay saat hover */
+  transform: scale(1.03); /* Membesarkan overlay saat hover */
+}
+
+.text {
+  color: #e9e7e0;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  font-family: "Poppins";
+  line-height: 20px;
+}
+
+.kotak1 img {
+  object-fit: cover;
+  width: 100%;
+  filter: grayscale(1); /* Mengatur gambar menjadi hitam putih */
+  transition: filter 0.3s ease; /* Transisi halus untuk efek warna */
+  transform: scale(1); /* Ukuran awal gambar */
+}
+
+.kotak1:hover img {
+  filter: grayscale(0%); /* Kembalikan gambar ke warna normal saat hover */
+  transform: scale(1.03); /* Membesarkan gambar saat hover */
+}
+
+.kotak2 {
+  width: 44.1vw;
+  height: 38.3vh;
+  background-color: #474747;
+  border-radius: 30px;
+  margin-right: 2%;
+  margin-bottom: 2%;
+  position: relative;
+  bottom: 40.9vh;
+  left: 17.7vw;
+
+  position: relative;
+  overflow: hidden; /* Mencegah overlay keluar dari kotak */
+  transition: transform 0.3s ease; /* Transisi halus untuk pembesaran kotak */
+  transform: scale(1); /* Ukuran awal kotak */
+}
+
+.kotak2 img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  filter: grayscale(1); /* Mengatur gambar menjadi hitam putih */
+  transition: filter 0.3s ease; /* Transisi halus untuk efek warna */
+  transform: scale(1); /* Ukuran awal gambar */
+}
+
+.kotak2:hover img {
+  filter: grayscale(0%); /* Kembalikan gambar ke warna normal saat hover */
+  transform: scale(1.03); /* Membesarkan gambar saat hover */
+}
+
+.kotak2:hover {
+  transform: scale(1.03); /* Membesarkan kotak saat hover */
+}
+
+.kotak2:hover .overlay {
+  opacity: 1; /* Menampilkan overlay saat hover */
+  transform: scale(1.03); /* Membesarkan overlay saat hover */
+}
+
+.kotak3 {
+  width: 44.1vw;
+  height: 38.3vh;
+  background-color: #474747;
+  border-radius: 30px;
+  margin-right: 2%;
+  margin-bottom: 2%;
+  position: relative;
+  bottom: 40.9vh;
+
+  position: relative;
+  overflow: hidden; /* Mencegah overlay keluar dari kotak */
+  transition: transform 0.3s ease; /* Transisi halus untuk pembesaran kotak */
+  transform: scale(1); /* Ukuran awal kotak */
+}
+
+.kotak3 img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  filter: grayscale(1); /* Mengatur gambar menjadi hitam putih */
+  transition: filter 0.3s ease; /* Transisi halus untuk efek warna */
+  transform: scale(1); /* Ukuran awal gambar */
+}
+
+.kotak3:hover img {
+  filter: grayscale(0%); /* Kembalikan gambar ke warna normal saat hover */
+  transform: scale(1.03); /* Membesarkan gambar saat hover */
+}
+
+.kotak3:hover {
+  transform: scale(1.03); /* Membesarkan kotak saat hover */
+}
+
+.kotak3:hover .overlay {
+  opacity: 1; /* Menampilkan overlay saat hover */
+  transform: scale(1.03); /* Membesarkan overlay saat hover */
+}
+
+.kotak4 {
+  width: 16.5vw;
+  height: 38.3vh;
+  background-color: #474747;
+  border-radius: 30px;
+  margin-right: 2%;
+  margin-bottom: 2%;
+  position: relative;
+  bottom: 81.8vh;
+  left: 45.3vw;
+
+  position: relative;
+  overflow: hidden; /* Mencegah overlay keluar dari kotak */
+  transition: transform 0.3s ease; /* Transisi halus untuk pembesaran kotak */
+  transform: scale(1); /* Ukuran awal kotak */
+}
+
+.kotak4 img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  filter: grayscale(1); /* Mengatur gambar menjadi hitam putih */
+  transition: filter 0.3s ease; /* Transisi halus untuk efek warna */
+  transform: scale(1); /* Ukuran awal gambar */
+}
+
+.kotak4:hover img {
+  filter: grayscale(0%); /* Kembalikan gambar ke warna normal saat hover */
+  transform: scale(1.03); /* Membesarkan gambar saat hover */
+}
+
+.kotak4:hover {
+  transform: scale(1.03); /* Membesarkan kotak saat hover */
+}
+
+.kotak4:hover .overlay {
+  opacity: 1; /* Menampilkan overlay saat hover */
+  transform: scale(1.03); /* Membesarkan overlay saat hover */
+}
+
+.judul-kanan {
+  color: orange;
+  font-family: "Fairplay";
+  position: relative;
+  bottom: 205%;
+  left: 74.5%;
+  width: 30%;
+  font-size: 50px;
+  line-height: 50px;
+}
+
+.bacaan-kanan {
+  color: white;
+  font-family: "Fairplay";
+  position: relative;
+  text-align: left;
+  bottom: 200%;
+  left: 74.5%;
+  width: 25%;
+  font-size: 20px;
+  line-height: 23px;
+}
+
+.footer {
+  width: 100%;
+  height: 10vh;
+  background-color: #0e0e0e;
+}
+
+.isi-footer {
+  font-size: 20px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 10vh;
+  color: #e9e7e0;
+}
+
+/* KELEPERLUAN WEBSITE RESPONSIF */
+
+/* UKURAN LAYA DARI 60% - 75% */
+@media (min-width: 60em) and (max-width: 75em) {
+  .overlay-text P {
+    font-size: 40px;
+  }
+
+  .sub-overlay-text {
+    font-size: 13px;
+    margin-top: -1vh;
+  }
+
+  /* judul acara wayang */
+  .content-box h2 {
+    font-size: 30px;
+    margin: 3vh 0;
+  }
+
+  .tanggal-acara,
+  .lokasi,
+  .harga-tiket {
+    margin-bottom: 1vh;
+    margin-right: 5%;
+    margin-left: 7%;
+  }
+}
+
+/* UKURAN LAYAR DARI 60% */
+@media (max-width: 60em) {
+  /* kurang dari 60% dari lebar default */
+  #categories,
+  #search-profile-container {
+    display: none; /* Sembunyikan konten */
+  }
+
+  .hamburger {
+    display: block; /* Tampilkan hamburger */
+  }
+
+  /* Hamburger menu yang aktif */
+  .active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Atur posisi */
+    left: 0; /* Pojok kiri */
+    background: #fff; /* Warna latar belakang */
+    width: 100%; /* Lebar penuh */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Pastikan di atas elemen lain */
+  }
+
+  .overlay-text P {
+    font-size: 30px;
+  }
+
+  .sub-overlay-text {
+    font-size: 13px;
+    margin-top: -2vh;
+  }
+
+  .content-box h2 {
+    font-size: 25px;
+    margin: 3vh 0;
+  }
+
+  .tanggal-acara,
+  .lokasi,
+  .harga-tiket {
+    margin-bottom: 0;
+    margin-right: 5%;
+    margin-left: 7%;
+
+    font-size: 15px;
+  }
+
+  .barisgambarartikel td {
+    box-sizing: border-box;
+    width: 20.5vw; /*  ini ukuran lebar setiap gambarnya */
+    height: 30vh; /*  kalo ini ukuran tinggi setiap gambarnya */
+    background: rgba(217, 217, 217, 0.58);
+    border: 1px solid black;
+    box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(6px);
+    border-radius: 17px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    font-weight: bolder;
+    color: black;
+    margin-right: 3%;
+  }
+
+  .deskripsi-artikel .laila-sari-deskripsi a,
+  .deskripsi-artikel .pasar-apung-deskripsi a,
+  .deskripsi-artikel .benyamin-deskripsi a,
+  .deskripsi-artikel .tenun-deskripsi a {
+    font-size: 20px;
+  }
+
+  .selengkapnya-2 {
+    width: 30vw;
+    padding: 1% 2%;
+    border-radius: 20px 0 0 20px;
+    background-color: #191919;
+    color: #e9e7e0;
+    font-weight: 600;
+    font-family: "Poppins";
+    margin-top: 3vh;
+    position: absolute;
+    text-align: left;
+    right: -5%;
+  }
+
+  .selengkapnya-2:hover {
+    width: 31vw;
+    letter-spacing: 0.23px;
+    transition: all 0.2s ease-out;
+    padding: 1% 2%;
+    border-radius: 20px 0 0 20px;
+    background-color: #191919;
+    color: white;
+    font-family: "Poppins";
+    transform: scale(1.03);
+  }
+
+  .selengkapnya-2:active {
+    letter-spacing: 0.5px;
+    background-color: #191919;
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+    transform: translateY(5px);
+    transition: 100ms;
+  }
+}
+
+/* UKURAN LAYAR PAS UDAH DI BAWAH 50% */
+@media (max-width: 50em) {
+  .overlay-text p {
+    font-size: 20px;
+    position: relative;
+    bottom: 40vh;
+  }
+
+  .sub-overlay-text p {
+    font-size: 10px;
+    margin-top: 2vh;
+    position: relative;
+    bottom: 40vh;
+  }
+
+  #background-video {
+    height: 50vh;
+  }
+
+  /* MULAI DARI SINI UDAH PUNYA BLACKPAGE WAYANH */
+  .black-page {
+    height: 60vh;
+  }
+
+  /* buat ngatur gamabr wayang nya */
+  .content-box img {
+    width: 30%;
+    margin-left: -2%; /* Move the image slightly to the right */
+    border-radius: 5%;
+    position: relative;
+    bottom: 20vh;
+  }
+
+  .content-box .agenda {
+    font-size: 15px;
+    position: relative;
+    bottom: 15vh;
+    right: 9vw;
+  }
+
+  .content-box h2 {
+    font-size: 20px;
+    margin: 3vh 0 0 0;
+    position: relative;
+    bottom: 15vh;
+    right: 9vw;
+  }
+
+  .content-box .deskripsi-wayang {
+    opacity: 0;
+  }
+
+  .tanggal-acara,
+  .lokasi,
+  .harga-tiket {
+    position: relative;
+    top: -30vh;
+    left: -8vw;
+    margin-bottom: 0.5vh;
+    margin-right: 5%;
+    margin-left: 7%;
+
+    font-size: 15px;
+  }
+
+  .icon-nih img {
+    position: relative;
+    top: -28.6vh;
+    left: -8vw;
+  }
+
+  .selengkapnya {
+    position: relative;
+    top: -23vh;
+    width: 16vw;
+    right: 8.5vw;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 40em) {
+  .icon-nih {
+    position: relative;
+    right: -4vw;
+  }
+
+  .selengkapnya {
+    position: relative;
+    top: -28vh;
+    width: 20vw;
+    right: 4.5vw;
+    font-size: 10px;
+  }
+
+  .tanggal-acara,
+  .lokasi,
+  .harga-tiket {
+    position: relative;
+    top: -30vh;
+    left: -3vw;
+    margin-bottom: 0.5vh;
+    margin-right: 5%;
+    margin-left: 7%;
+
+    font-size: 10px;
+  }
+
+  .content-box h2 {
+    font-size: 20px;
+    margin: 3vh 0 0 0;
+    position: relative;
+    bottom: 9vh;
+    right: 4vw;
+  }
+
+  .content-box .agenda {
+    font-size: 15px;
+    position: relative;
+    bottom: 7vh;
+    right: 4vw;
+  }
+
+  .content-box img {
+    width: 30%;
+    margin-left: 3%; /* Move the image slightly to the right */
+    border-radius: 5%;
+    position: relative;
+    bottom: 20vh;
+  }
+
+  /* MULAI DARI SINI UDAH PUNYA WHITE PAGE */
+
+  .white-page {
+    height: 100vh;
+  }
+}
+
+@media (max-width: 40em) {
+  .white-page {
+    height: 80vh;
+  }
+
+  .white-page .content-box-2 h2 {
+    font-family: "Poppins";
+    font-weight: 600;
+    text-align: center;
+    color: #191919;
+    font-size: 30px;
+    letter-spacing: -1px;
+    margin-top: 0%;
+  }
+
+  .selengkapnya-2 {
+    width: 40vw;
+    padding: 1% 2%;
+    border-radius: 20px 0 0 20px;
+    background-color: #191919;
+    color: #e9e7e0;
+    font-weight: 600;
+    font-family: "Poppins";
+    margin-top: 3vh;
+    position: absolute;
+    text-align: left;
+    right: -5%;
+  }
+
+  .selengkapnya-2:hover {
+    width: 41vw;
+    letter-spacing: 0.23px;
+    transition: all 0.2s ease-out;
+    padding: 1% 2%;
+    border-radius: 20px 0 0 20px;
+    background-color: #191919;
+    color: white;
+    font-family: "Poppins";
+    transform: scale(1.03);
+  }
+
+  .selengkapnya-2:active {
+    letter-spacing: 0.5px;
+    background-color: #191919;
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+    transform: translateY(5px);
+    transition: 100ms;
+  }
+
+  /* MULAI DARI SINI UDAH MASUK BLACK PAGE 2 */
+
+  .black-page-2 {
+    height: 80vh;
+  }
+
+  .kotak1 {
+    opacity: 0;
+  }
+
+  .kotak2 {
+    width: 90vw;
+    height: 38.3vh;
+    background-color: #474747;
+    border-radius: 30px;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    position: relative;
+    bottom: 40.9vh;
+    left: -2vw;
+
+    position: relative;
+    overflow: hidden; /* Mencegah overlay keluar dari kotak */
+    transition: transform 0.3s ease; /* Transisi halus untuk pembesaran kotak */
+    transform: scale(1); /* Ukuran awal kotak */
+  }
+
+  .kotak2:hover img {
+    filter: grayscale(0%); /* Kembalikan gambar ke warna normal saat hover */
+    transform: scale(1.03); /* Membesarkan gambar saat hover */
+  }
+
+  .kotak2:hover {
+    transform: scale(1.03); /* Membesarkan kotak saat hover */
+  }
+
+  .kotak2:hover .overlay {
+    opacity: 0; /* Menampilkan overlay saat hover */
+  }
+
+  .kotak3 {
+    opacity: 0;
+  }
+
+  .kotak4 {
+    opacity: 0;
+  }
+
+  .bacaan-kanan {
+    color: white;
+    font-family: "Fairplay";
+    position: relative;
+    text-align: left;
+    bottom: 160%;
+    left: 0%;
+    width: 90%;
+    font-size: 15px;
+    line-height: 16px;
+  }
+
+  .judul-kanan {
+    color: orange;
+    font-family: "Fairplay";
+    position: relative;
+    bottom: 163%;
+    left: 0%;
+    width: 30%;
+    font-size: 30px;
+    line-height: 25px;
+  }
+
+  .isi-footer {
+    font-size: 15px;
+  }
+
+  .tabel-artikel img {
+    height: 20vh;
+  }
+
+  .barisgambarartikel td {
+    box-sizing: border-box;
+    width: 20.5vw; /*  ini ukuran lebar setiap gambarnya */
+    height: 20vh; /*  kalo ini ukuran tinggi setiap gambarnya */
+    background: rgba(217, 217, 217, 0.58);
+    border: 1px solid black;
+    box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(6px);
+    border-radius: 17px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    font-weight: bolder;
+    color: black;
+    margin-right: 2%;
+  }
+
+  .deskripsi-artikel .laila-sari-deskripsi a,
+  .deskripsi-artikel .pasar-apung-deskripsi a,
+  .deskripsi-artikel .benyamin-deskripsi a,
+  .deskripsi-artikel .tenun-deskripsi a {
+    font-size: 18px;
+  }
+}

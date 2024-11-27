@@ -1,0 +1,27 @@
+.delete-button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
+
+.cancel-button {
+    background-color: #ccc;
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.cancel-button:hover {
+    background-color: #aaa;
+}

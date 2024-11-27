@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 32 32" viewBox="0 0 32 32" id="price">
+  <g>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M11.4295,29.5185l-8.8893-8.8893c-0.6695-0.6695-0.6695-1.7549,0-2.4244L15.1214,5.6235
+		c0.448-0.448,1.0615-0.6906,1.6948-0.6702l7.8197,0.2522c1.208,0.039,2.1782,1.0092,2.2172,2.2172l0.2522,7.8197
+		c0.0204,0.6333-0.2222,1.2468-0.6702,1.6948L13.8538,29.5185C13.1844,30.188,12.0989,30.188,11.4295,29.5185z"></path>
+    <line x1="4.586" x2="15.899" y1="16.159" y2="27.473" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"></line>
+    <circle cx="22.942" cy="9.117" r="1.433"></circle>
+  </g>
+</svg>

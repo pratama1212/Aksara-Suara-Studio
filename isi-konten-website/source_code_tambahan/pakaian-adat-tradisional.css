@@ -1,0 +1,708 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+body {
+    background-color: #e9e9e9;
+    color: white;
+    height: 200vh;
+    overflow-x: hidden; /* Sembunyikan scroll horizontal */
+    margin: 0; /* Hapus margin default */
+    padding: 0; /* Hapus padding default */
+  }
+
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vh 2vw;
+  font-weight: 500;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transition for shadow */
+
+  width: 100vw; /* Full width sesuai lebar layar */
+  height: 10vh; /* 10% tinggi layar */
+  background-color: transparent;
+}
+
+/* Navbar default */
+.navbar {
+  background-color: transparent; /* Warna asli navbar */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transisi untuk efek slide dan perubahan warna */
+  position: fixed; /* Navbar tetap di posisi tetap */
+  width: 100%; /* Lebar penuh */
+  top: 0; /* Posisi di atas */
+  z-index: 1000; /* Pastikan navbar berada di atas konten lain */
+}
+
+/* CSS untuk navbar saat digulir ke bawah */
+.navbar.hide {
+  transform: translateY(-100%); /* Geser navbar ke atas keluar dari tampilan */
+  background-color: transparent; /* Transparan saat menghilang */
+}
+
+/* CSS untuk navbar saat digulir ke atas */
+.navbar.show {
+  transform: translateY(0); /* Kembalikan navbar ke posisi semula */
+  background-color: #e9e7e0; /* Warna latar belakang saat navbar muncul kembali */
+  height: 10vh;
+}
+
+/* Navbar saat muncul kembali setelah scroll ke atas */
+.navbar.show .search-box {
+  border-color: white; /* Border berwarna putih */
+}
+
+/* Warna placeholder 'ketik' saat navbar muncul kembali setelah scroll ke atas */
+.navbar.show .search-box input::placeholder {
+  color: black; /* Placeholder berwarna hitam */
+}
+
+/* CSS untuk konten di dalam navbar saat muncul kembali */
+.navbar.show .categories a,
+.navbar.show .search-box input,
+.navbar.show .search-box button,
+.navbar.show .profile a img {
+  color: black; /* Warna teks dan ikon menjadi hitam */
+}
+
+/* kata 'ketik akan berwarna putih */
+.navbar.show .search-box input::placeholder {
+  color: white; /* Placeholder berwarna putih */
+}
+
+/* CSS untuk efek inversi pada elemen saat navbar muncul kembali */
+.navbar.show .logo img,
+.navbar.show .search-icon img,
+.navbar.show .profile img {
+  filter: invert(0); /* Inversi warna pada logo dan ikon */
+}
+
+/* Gaya saat halaman di-scroll */
+.navbar.scrolled {
+  background-color: #e9e7e0; /* Navbar berubah menjadi putih */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  height: 50px;   /*Yang ini ga perlu diubah */
+  transition: 0.5s;
+}
+
+/* Ubah warna teks saat navbar berwarna putih */
+.navbar.scrolled .categories li a {
+  color: black; /* Ubah teks navbar menjadi hitam */
+}
+
+.navbar.scrolled .logo img,
+.navbar.scrolled .search-icon img,
+.navbar.scrolled .profile img {
+  filter: invert(0); /* Ubah logo dan ikon menjadi warna asli (hitam) kalo navbar muncul*/
+}
+
+.navbar.scrolled .search-box button {
+  color: black;
+}
+.navbar:hover {
+  background-color: #e9e7e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect pas nge hover */
+}
+
+/* Navbar saat berada di ujung atas halaman */
+.navbar.at-top {
+  background-color: transparent; /* Warna latar belakang transparan */
+  color: white; /* Warna teks putih */
+}
+
+.navbar.at-top .categories a,
+.navbar.at-top .search-box input,
+.navbar.at-top .search-box button,
+.navbar.at-top .profile a img {
+  color: white; /* Warna teks dan ikon putih */
+}
+
+.navbar.at-top .logo img,
+.navbar.at-top .search-icon img,
+.navbar.at-top .profile img {
+  filter: invert(1); /* Inversi warna pada logo dan ikon */
+}
+
+/* Hover effect saat navbar berada di ujung atas */
+.navbar.at-top:hover {
+  background-color: #e9e7e0; /* Warna latar belakang saat hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan saat hover */
+}
+
+.logo img {
+  width: 5vw;
+  filter: invert(1); /* Initial inverted color (white) */
+  transition: filter 0.3s ease;
+}
+
+/* Change logo color to normal (black) when hovering over the navbar */
+.navbar:hover .logo img {
+  filter: invert(0); /* Normal color (black) on navbar hover */
+}
+
+.categories {
+  list-style: none;
+  display: flex;
+  font-family: "Fairplay";
+  letter-spacing: 1px;
+}
+
+
+.categories a {
+  color: #e9e7e0;
+  text-decoration: none;
+}
+
+
+.categories li {
+  margin: 0 1.5vw;
+}
+
+/* Add a border-bottom on hover for navbar links */
+/* Style for navbar links */
+.categories li a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px; /* Ukuran font yang diperbesar (2x dari 16px) */
+  position: relative; /* Required for positioning the pseudo-element */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Underline effect */
+.categories li a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -5px; /* Adjust based on your design */
+  width: 100%;
+  height: 0.3vh; /* Thickness of the underline */
+  background-color:#191919; /* Color of the underline */
+  transform: scaleX(0); /* Initially hide the underline */
+  transform-origin: bottom right;
+  transition: transform 0.3s ease; /* Smooth transition for underline appearance */
+}
+
+/* Change text color and show underline on hover */
+.categories li a:hover {
+  color: black; /* Change text color on hover */
+}
+
+.categories li a:hover::after {
+  transform: scaleX(1); /* Show the underline on hover */
+  transform-origin: bottom left;
+}
+
+.navbar:hover .categories li a {
+  color: black;
+}
+
+.search-profile-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-box {
+  display: none;
+  align-items: center;
+  position: absolute;
+  right: 100px; /* Adjust to position search box correctly */
+  top: 0.9vh;
+  background-color: transparent; /* Background color remains transparent */
+  padding: 0vh;
+
+  border-radius: 20px;
+  z-index: 10;
+  flex-direction: row-reverse;
+
+  border: 2px solid white; /* Border default berwarna putih */
+  transition: border-color 0.3s ease; /* Transisi perubahan warna border */
+}
+
+.search-box input {
+  padding: 0.5vw;
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  border-radius: 3px;
+  margin-right: 1vw;
+  width: 10vw;  /*Buat ngatur lebar kotak inputan*/
+  transition: width 0.3s ease; /* Transisi halus */
+  outline: none;
+}
+
+/* Warna default 'ketik' putih */
+.search-box input::placeholder {
+  color: white; /* Warna placeholder 'ketik' menjadi putih */
+  opacity: 0.7; /* Pastikan opacity diatur ke 1 agar terlihat jelas */
+}
+
+/* CSS untuk placeholder saat navbar di-scroll */
+.navbar.scrolled .search-box input::placeholder {
+  color: black; /* Placeholder berwarna hitam saat navbar di-scroll */
+}
+
+/* Saat navbar di-hover, ubah warna 'ketik' menjadi hitam */
+.navbar:hover .search-box input::placeholder {
+  color: black; /* Ubah placeholder 'ketik' menjadi hitam */
+}
+
+/* CSS untuk navbar saat di-scroll */
+.navbar.scrolled .search-box {
+  border-color: black; /* Border berwarna hitam saat navbar di-scroll */
+}
+
+/* CSS saat navbar muncul kembali setelah scroll ke atas, namun belum mencapai ujung atas */
+.navbar.show:not(.at-top) .search-box {
+  border-color: black; /* Ubah warna border menjadi hitam */
+}
+
+.navbar.show:not(.at-top) .search-box input::placeholder {
+  color: black; /* Ubah warna placeholder 'ketik' menjadi hitam */
+}
+
+.navbar.show:not(.at-top) .search-box input {
+  color: black; /* Ubah warna teks input menjadi hitam */
+}
+
+.search-box button {
+  padding: 0.5vh 1vw;
+  background-color: transparent;
+  color: white;
+
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-box input:hover,
+.search-box button:hover {
+  background-color: transparent;
+  color: white;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.search-box.active {
+  background-color: transparent; /* Warna latar belakang menjadi transparan */
+  border: 1px solid black; /* Border tetap putih untuk kontras */
+}
+
+/* Warna font default saat aktif */
+.search-box.active input {
+  color: white; /* Warna font menjadi putih */
+  font-size: 20px; /* Perbesar ukuran font */
+}
+
+.search-box.active button {
+  color: white; /* Warna teks tombol menjadi putih */
+  border: none; /* Hilangkan border pada tombol */
+  background-color: transparent; /* Warna latar belakang tombol menjadi transparan */
+  font-size: 16px; /* Perbesar ukuran font pada tombol jika perlu */
+}
+
+/* Warna font saat hover navbar */
+.navbar:hover .search-box.active input,
+.navbar:hover .search-box.active button {
+  color: black; /* Ubah warna font menjadi hitam saat hover navbar */
+}
+
+/* Change border color when navbar is hovered */
+.navbar:hover .search-box {
+  border-color: black; /* Border color when navbar is hovered */
+}
+
+.search-box:not(:hover) {
+  border-color: white; /* Default border color when not hovering */
+}
+
+.search-icon {
+  cursor: pointer;
+  margin-left: 1vw;
+  position: relative; /* Ensure it is positioned relative to its container */
+}
+
+.magnifier {
+  width: 1vw;
+}
+
+.profile img {
+  width: 3vw;
+  border-radius: 50%;
+}
+
+.profile {
+  margin-left: 1vw;
+  transform: scale(0.8);
+}
+
+.search-icon img,
+.profile img {
+  filter: invert(1); /* Setel ikon menjadi putih */
+  transition: filter 0.3s ease; /* Transisi warna yang halus */
+}
+
+/* Kembalikan warna ikon ke normal saat navbar di-hover */
+.navbar:hover .search-icon img,
+.navbar:hover .profile img {
+  filter: invert(0); /* Kembalikan warna ikon ke aslinya */
+}
+
+/* Style untuk dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none; /* Sembunyikan menu secara default */
+  position: absolute;
+  top: 120%; /* Tempatkan di bawah kategori */
+  left: 0;
+  background-color: white; /* Warna background menu */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+  z-index: 1000; /* Pastikan menu muncul di depan elemen lainnya */
+  list-style: none;
+  padding: 1vh 0vw;
+  min-width: 20vw; /* Minimum lebar menu */
+  border-radius: 5px;
+  width: auto; /* Lebar menyesuaikan konten */
+  white-space: nowrap; /* Mencegah teks membungkus ke baris berikutnya */
+}
+
+.dropdown-menu li {
+  padding: 1vh 1vw;
+}
+
+.dropdown-menu li a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+  margin: 0.6vh 0;
+}
+
+/* Efek hover pada setiap item dropdown */
+.dropdown-menu li:hover a {
+  border-radius: 5px;
+}
+
+/* Tampilkan dropdown saat di-hover */
+.dropdown:hover .dropdown-menu {
+  display: block; /* Tampilkan menu dropdown */
+}
+
+/* Style saat navbar di-hover */
+.navbar:hover .dropdown-menu li a {
+  color: black;
+}
+
+
+
+
+/* HAMBURGER MENU  DAN KEPERLUANNYA */
+
+/* Hamburger menu */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Hide categories and search-profile-container on small screens */
+#categories,
+#search-profile-container {
+  display: flex; /* Tampilkan flex secara default */
+}
+
+
+.navbar .hamburger a {
+  color: white;
+  text-decoration-line: none ;
+}
+
+.navbar:hover .hamburger a {
+  color: black; /* Ubah warna hamburger menu menjadi hitam saat navbar di-hover */
+}
+
+.navbar:hover .hamburger a {
+  color: black; /* Ubah warna hamburger menu menjadi hitam saat navbar di-hover */
+}
+
+
+
+/* Menu Overlay Styles */
+.menu-overlay {
+  display: none; /* Sembunyikan overlay secara default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50vh;
+  background-color: rgba(223, 223, 223, 0.99); /* Latar belakang gelap */
+  z-index: 1000; /* Pastikan overlay berada di atas konten lain */
+  
+}
+
+.overlay-content {
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  text-align: left;
+}
+
+.overlay-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.overlay-menu li {
+  margin: 10px 0;
+}
+
+.overlay-menu a {
+  color: black; /* Warna teks di overlay */
+  text-decoration: none;
+  font-size: 20px;
+}
+
+/* Close Button */
+.closebtn {
+  color: black; /* Warna close button */
+  font-size: 36px;
+  cursor: pointer;
+  position: absolute ;
+  top: 0vh;
+  right: -67vw;
+
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.halaman-pertama {
+    width: 100%;
+    height: 80vh;
+    text-align: center;
+    position: relative; /* Tambahkan ini untuk posisi overlay */
+    display: inline-block;
+    
+}
+
+.halaman-pertama img {
+width: 100%; /* Buat gambar mengisi lebar container */
+height: 80vh; /* Tinggi akan menyesuaikan dengan proporsi gambar */
+object-fit: cover; /* Menjaga proporsi gambar dan memotong jika perlu */
+filter: brightness(0.5);
+margin-bottom: -5vh;
+}
+
+
+
+
+
+
+
+
+/* MULAI DARI SINI UDAH CSS PUNYA SECTION BAJU NYA */
+/* Container untuk menampung grid */
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 4 barang dalam satu baris */
+    gap: 1vw; /* Jarak antar barang */
+    padding: 20px;
+}
+
+/* Barang layout */
+.barang {
+    background-color: #e9e7e0;
+    padding: 2%;
+    padding-left: ;
+    text-align: left;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+
+}
+
+/* Efek hover pada barang */
+.barang:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    transform: scale(1.01);
+    transition: 0.5s;
+}
+
+/* Gaya gambar */
+.barang img {
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 2%;
+    filter: brightness(0.9);
+}
+
+/* Gaya judul barang */
+.barang h3 {
+    font-size: 15px;
+    margin:  -2% 0 1% 2%;
+    color: #333;
+    font-family: "Poppins";
+    line-height: 3vh;
+}
+
+/* Gaya harga barang */
+.barang p {
+    font-size: 1em;
+    color: rgb(199, 129, 0); /* Warna harga */
+    font-weight: 550;
+    font-family: "Poppins";
+    margin:  0% 0 1% 2%;
+}
+
+.halaman-pertama H1 {
+    font-size: 35px;
+    color: #e9e7e0;
+    font-family: "Poppins";
+    position: relative;
+    top: -18vh;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 70em) {
+
+
+
+
+}
+
+@media (max-width: 60em) 
+{ /* kurang dari 60% dari lebar default */
+  #categories,
+  #search-profile-container {
+      display: none; /* Sembunyikan konten */
+  }
+
+  .hamburger {
+      display: block; /* Tampilkan hamburger */
+  }
+
+  /* Hamburger menu yang aktif */
+  .active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 60px; /* Atur posisi */
+      left: 0; /* Pojok kiri */
+      background: #fff; /* Warna latar belakang */
+      width: 100%; /* Lebar penuh */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000; /* Pastikan di atas elemen lain */
+
+  }
+
+  
+  .overlay-text P {
+    font-size: 30px;
+  }
+
+  .sub-overlay-text {
+    font-size: 13px;
+    margin-top: -2vh;
+  }
+
+  
+  .content-box h2 {
+    font-size: 25px;
+    margin: 3vh 0;
+  }
+
+  }
+
+
+
+
+@media(max-width: 50em) {
+    
+    .halaman-pertama img {
+        width: 100vw; /* Buat gambar mengisi lebar container */
+        height: 40vh; /* Tinggi akan menyesuaikan dengan proporsi gambar */
+        object-fit: cover; /* Menjaga proporsi gambar dan memotong jika perlu */
+        filter: brightness(0.5);
+    }
+
+
+    .container {
+        grid-template-columns: repeat(2, 1fr); /* 2 barang dalam satu baris */
+        margin-top: -40vh;
+    }
+
+    .barang {
+        margin: 1vh 1vh ;
+    }
+
+    .halaman-pertama H1 {
+        font-size: 20px;
+        color: #e9e7e0;
+        font-family: "Poppins";
+        position: relative;
+        top: -8vh;
+
+    }
+
+    .barang h3 {
+        font-size: 15px;
+        margin:  -3% 0 1% 0;
+        color: #333;
+        font-family: "Poppins";
+    }
+}
+
